@@ -33,10 +33,11 @@
 - name: install dependencies
   ansible.builtin.command: npm install
   args: #dependencies install on package.json, but package.json is available on /app directory ,before install depenedencis ,lets move to app directory that's why we have to use chdir: command
-    chdir: /app    
+    chdir: /app  
+
 - name: copy backend service #copy only works on files with out variables 
   ansible.builtin.template:
-    src: backend.service
+    src: backend.service.j2
     dest: /etc/systemd/system/backend.service
 
 - name: ansible to install boto3 and botocore
