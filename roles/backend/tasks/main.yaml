@@ -15,12 +15,17 @@
 - name: create expense user 
   ansible.builtin.user:
     name: expense
+
 - name: import tasks from common role 
+  tags:
+  - deployment
   ansible.builtin.import_role:
     name: common
     tasks_from: app-pre-req
 
 - name: install dependencies
+  tags:
+  - deployment
   ansible.builtin.command: npm install
   args: #dependencies install on package.json, but package.json is available on /app directory ,before install depenedencis ,lets move to app directory that's why we have to use chdir: command
     chdir: /app  
@@ -45,7 +50,10 @@
     target: /app/schema/backend.sql
     state: import #dump means import
     name: all 
+
 - name: daemon reload
+  tags:
+  - deployment
   ansible.builtin.systemd_service:
     daemon_reload: true
     state: restarted
