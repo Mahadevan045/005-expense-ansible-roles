@@ -2,7 +2,7 @@ plugin: amazon.aws.aws_ec2 #plugin used to connect to aws cloud
 regions: #region to find out ip address 
 - us-east-1
 filters: #filter to find out name of the tag based on nginx and running server
-  tag:Name: backend
+  tag:Name: nginx
   instance-state-name : running
 hostnames: # what do u want we can specify based on list ,present i want private ip address
 - private-ip-address
